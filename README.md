@@ -1,3 +1,6 @@
+Preliminary react-babylon.js framework
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -5,5 +8,3 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### `npm start`
-
-Preliminary react-babylon.js framework
