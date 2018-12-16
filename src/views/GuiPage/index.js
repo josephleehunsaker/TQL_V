@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import * as BABYLON from 'babylonjs'
 import { createUniversalCamera } from 'bjs/camera'
 import { createOmniLight } from 'bjs/light'
+import { cosMeshMove, consolidateGradualMeshMoves } from 'algorithms/gradualMeshMove'
 
 const StyledGuiPage = styled.div`
     width: 100%;
@@ -44,14 +45,15 @@ class GuiPage extends React.Component {
     }
 
     componentDidMount () {
+        const nextFrames = []
         let sphereCounter = 0
-        function createSphere (scene, x = 0, y = 0, z) {
+        function createSphere (scene, x = 0, y = 0, z = 10) {
             var sphere = BABYLON.Mesh.CreateSphere('sphere' + sphereCounter, 16, 1, scene, false, BABYLON.Mesh.FRONTSIDE)
             sphereCounter++
-            // Move the sphere upward 1/2 of its height
             sphere.position.x = x
             sphere.position.y = y
             sphere.position.z = z
+            return sphere
         }
         // Get the canvas DOM element
         canvas = document.getElementById('renderCanvas')
@@ -72,14 +74,21 @@ class GuiPage extends React.Component {
             var light = createOmniLight(scene, camera)
             // Create a built-in "sphere" shape its constructor takes 6 params: name, segment, diameter, scene, updatable, sideOrientation
             const arr = [-3, -2, -1, 1, 2, 3]
+            const meshArray = []
+            const newMeshPositions = []
             arr.forEach(x => {
                 arr.forEach(y => {
                     arr.forEach(z => {
-                        createSphere(scene, x, y, z)
+                        const sphere = createSphere(scene)
+                        meshArray.push(sphere)
+                        newMeshPositions.push({ x, y, z })
                     })
                 })
             })
-            createSphere(scene, 1, 1)
+
+            const moves = meshArray.map((mesh, i) => cosMeshMove(mesh, newMeshPositions[i], 150))
+            nextFrames.push(...consolidateGradualMeshMoves(moves))
+
             // Return the created scene
             return scene
         }
@@ -88,7 +97,16 @@ class GuiPage extends React.Component {
         var scene = createScene()
 
         // run the render loop
-        engine.runRenderLoop(function(){
+        engine.runRenderLoop(function () {
+            if (nextFrames.length) {
+                nextFrames.splice(0, 1).forEach(meshFrames => {
+                    meshFrames.forEach(meshFrame => {
+                        meshFrame.mesh.position.x = meshFrame.x
+                        meshFrame.mesh.position.y = meshFrame.y
+                        meshFrame.mesh.position.z = meshFrame.z
+                    })
+                })
+            }
             scene.render()
         })
 
