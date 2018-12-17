@@ -1,11 +1,11 @@
 import * as BABYLON from 'babylonjs'
 
-export function getOrderCoordinates (order, layer, layerOrder, previousPerimeter, perimeter, mesh) {
+export function getOrderCoordinates (order, layer, layerOrder, perimeter, mesh) {
     const multiplier = layer // Math.pow(1.618033988749895, layer) / 3
     let rotation = Math.PI / 2
     let x = multiplier * Math.cos(-(2 * Math.PI * layerOrder) / perimeter + rotation)
     let y = multiplier * Math.sin(-(2 * Math.PI * layerOrder) / perimeter + rotation)
-    let z = 20 + layer
+    let z = 50
     if (order === 0) {
         const material = new BABYLON.StandardMaterial("texture1");
         material.diffuseColor = new BABYLON.Color3(1, 0, 1);
@@ -57,7 +57,7 @@ export function orderedPseudoFibonacciPlacement (meshArray) {
     while (order < meshArray.length) {
         const mesh = meshArray[order]
         mesh.material = rainbowMaterials[layerOrder % 10]
-        res.push(getOrderCoordinates(order, layer, layerOrder, previousPerimeter, perimeter, mesh))
+        res.push(getOrderCoordinates(order, layer, layerOrder, perimeter, mesh))
 
         if (layerOrder === perimeter - 1) {
             const newPerimeter = 2 * perimeter - previousPerimeter
@@ -69,7 +69,7 @@ export function orderedPseudoFibonacciPlacement (meshArray) {
                 perimeter = 6
             }
             if (layer === 2) {
-                perimeter = 12
+                perimeter = 13
             }
         } else {
             layerOrder++
