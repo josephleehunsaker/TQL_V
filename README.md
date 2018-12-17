@@ -1,8 +1,7 @@
-Preliminary react-babylon.js framework
+## Preliminary react-babylon.js framework
 
 ---
-
-# Setup github pages
+## Setup github pages
 Set the basename to the first part of the URL where you are hosting it "https://jtmckay.github.io/TQL_V/"
 <BrowserRouter basename='/TQL_V'>
 
