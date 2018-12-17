@@ -2,6 +2,7 @@
   "name": "tql_v",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://jtmckay.github.io/TQL_V/",
   "dependencies": {
     "babylonjs": "^3.3.0",
     "react": "^16.6.3",

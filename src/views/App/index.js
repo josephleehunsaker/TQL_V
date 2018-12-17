@@ -6,7 +6,7 @@ import routes from './routes'
 
 const App = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename='/TQL_V'>
             <div style={{ height: '100%'}}>
                 {routes}
             </div>
