@@ -47,7 +47,7 @@ export function cosMeshMove (mesh, newPosition, frames = 6) {
     return res
 }
 
-export function gradualMeshMove (mesh, newPosition, frames = 6) {
+export function linearMeshMove (mesh, newPosition, frames = 6) {
     const res = []
     let frame = 0
     while (frame < frames) {

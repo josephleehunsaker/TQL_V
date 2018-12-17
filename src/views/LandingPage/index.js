@@ -16,6 +16,7 @@ const StyledWelcome = styled.div`
 
 const StyledLink = styled.div`
     margin: 2rem;
+    text-align: center;
 `
 
 class LandingPage extends React.Component {
@@ -25,6 +26,9 @@ class LandingPage extends React.Component {
                 <StyledWelcome>Welcome to the Data Visualizer!</StyledWelcome>
                 <StyledLink>
                     <Link to='gui'>Let's Go!</Link>
+                    <br />
+                    <br />
+                    <Link to='fib'>Checkout Fibonacci</Link>
                 </StyledLink>
             </StyledLandingPage>
         )

@@ -4,7 +4,7 @@ import * as BABYLON from 'babylonjs'
 import { createUniversalCamera } from 'bjs/camera'
 import { createOmniLight } from 'bjs/light'
 import { cosMeshMove, consolidateGradualMeshMoves } from 'algorithms/gradualMeshMove'
-import { orderedPseudoFibonacciPlacement } from 'algorithms/pseudoFibonacci'
+import { orderedFibonacciPlacement } from 'algorithms/fibonacci'
 
 const StyledGuiPage = styled.div`
     width: 100%;
@@ -86,7 +86,7 @@ class GuiPage extends React.Component {
             createOmniLight(scene, camera)
 
             // Create a built-in "sphere" shape its constructor takes 6 params: name, segment, diameter, scene, updatable, sideOrientation
-            const arr = [-6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6]
+            const arr = [-3, -2, -1, 1, 2, 3]
             const newMeshPositions = []
             arr.forEach(x => {
                 arr.forEach(y => {
@@ -101,7 +101,7 @@ class GuiPage extends React.Component {
             // this.move(() => this.babylon.objects.map((mesh, i) => cosMeshMove(mesh, newMeshPositions[i], 150)))
             
             this.move(() => {
-                return orderedPseudoFibonacciPlacement(this.babylon.objects).map(fib => cosMeshMove(fib.mesh, fib.newPosition, 150))
+                return orderedFibonacciPlacement(this.babylon.objects).map(fib => cosMeshMove(fib.mesh, fib.newPosition, 150))
             })
 
             // Return the created scene

@@ -1,7 +1,7 @@
 import * as BABYLON from 'babylonjs'
 
 function createHemisphericLight (scene: BABYLON.Scene) {
-    let hemisphericLight = new BABYLON.HemisphericLight("Hemi0", new BABYLON.Vector3(0, 1, 0), scene)
+    let hemisphericLight = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene)
     hemisphericLight.diffuse = new BABYLON.Color3(.5, .5, .5)
     return hemisphericLight
 }
